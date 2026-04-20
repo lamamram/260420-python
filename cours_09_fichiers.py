@@ -1,0 +1,134 @@
+# %% --------------------- créer un fichier ------------------------
+
+# ".": dossier courant
+# "..": dossier parent
+# "~" : dossier utilisateur
+# mode "w" : création si le fichier existe ET écrasement du contenu s'il existe
+# attention souvent sous windows/Excell on peut avoir des fichiers encodés en iso-8859-1
+
+# creér (ouvrir en mode création) le fichier "mon_fichier.txt" en encodage utf-8
+
+# écriture de deux lignes avec les sauts de lignes
+"1ère ligne\n"
+"2ème ligne\n"
+
+# important! il faut fermer ce qu'on a ouvert
+
+
+# %% ----------------- lire le contenu d'un fichier ---------------------
+
+# ouvrir le fichier en lecture et même encodage
+
+# lire une ligne (avec \n)
+
+# lire tout
+
+
+## REM. notion de curseur: la deuxième lecture reprend 
+## depuis la fin de la première ligne
+
+
+# %% ------------- écriture à la fin du fichier (append) -------------------
+
+# écrire une 3ème ligne dans le fichier 
+
+
+# vérifier que le contenu existant n'a pas été supprimé
+
+
+# %% ------------------- modes avancés ------------------------------
+# remplacer la ligne n
+
+# r+: on a un curseur au début en lecture
+#   : on a également un curseur à la fin en écriture (a priori)
+#   : on peut replacer le curseur d'écriture
+
+n = 3
+
+# je lis 1 ligne du fichier pour positionner le curseur de lecture
+
+
+
+## rem f.tell() : position du curseur d'écriture/lecture
+## f.seek(pos) : positionne les curseurs d'écriture/lecture à la position pos
+## attention : read et write utilise des caractère 
+##           : alors que tell et seek utilise des octets !!!
+
+# positionner tous les curseurs sur la position du curseur de lecture
+
+# écrire un nouveau contenu + \n
+
+# supprimer le reste du fichier après le curseur
+
+# je me repositionne au début du fichier pour lire le contenu
+
+
+# %% -- faciliter les ouvertures/fermetures: gestionnaires de contexte: with --
+
+## with <ouverture>() as <var>:
+  # fichier ouvert
+  # ....
+
+# ici fichier fermé
+
+
+# %% ----------- un fichier est un itérable de lignes ----------------------
+
+with open("./mon_fichier.txt", mode="r", encoding="utf-8") as f:
+  for line in f:
+    print(line)
+
+# %% --------- suppression de la ligne n avec for ----------
+
+n = 2
+
+# lire toutes les lignes du fichier dans une liste sauf la ligne à supprimer
+
+# écraser le fichier avec les lignes de liste
+
+# %% -----------------  création d'un csv -----------------------------
+
+
+# importer le module standard csv de la bibliothèque standard
+
+users = [
+  {"firstname":"Joe", "lastname": "Doe", "age": 22, "height": 1.75, "comment": "blablab ... ; blabliblo"},
+  {"firstname": "Jane", "lastname": "Austen", "age": 34, "height": 1.79, "comment": "blabla"},
+]
+
+# ouvrir le fichier users.csv en création en utf-8
+# créer un writer issu du module csv, utilisant le fichier
+# utiliser le writer pour écrire le header du csv à partir des clés des dict
+# //                             les données du csv //         valeurs du dict
+
+# %% --------------- lire les lignes de csv ---------------
+
+# idem mais en lecture
+# protéger l'ouverture du fichier s'il le fichier existe
+# tip: on peut itérer de façon manuelle un itérable avec la fonction next()
+#    : pour récolter le header en première ligne
+
+
+# %% ----------------------- écriture en JSON ----------------------
+
+# idem avec json 
+# sachant que les objets et les dictionnaires python sont très proches
+# méthodes pour écrire: json.dump et json.dumps
+# écrire le json de façon comprimée ou dépliée (sep, indent)
+
+users = [
+  {"firstname":"Joe", "lastname": "Doe", "age": 22, "height": 1.75, "comment": "blablab ... ; blabliblo"},
+  {"firstname": "Jane", "lastname": "Austen", "age": 34, "height": 1.79, "comment": "blabla"},
+]
+
+
+
+# %% --------------- lire un json ---------------------------
+
+# idem en lecture avec json.load ou json.loads
+
+
+
+
+
+# %%
