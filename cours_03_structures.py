@@ -4,8 +4,15 @@ balance = 1000
 overdraft = 200
 
 amount = input("Entrez un montant : ")
-
+amount = int(amount)
 # si le montant est négatif => afficher "Transaction refusée: {montant} négatif"
+
+if amount < 0:
+    print(f"Transaction refusée: {amount} négatif")
+elif amount > balance + overdraft:
+    print(f"Transaction refusée: {amount} fonds insuffisants")
+else:
+    print("Transaction acceptée")
 
 # sinon mais si le montant trop important => "Transaction refusée: {montant} fonds insuffisants" 
 
@@ -19,28 +26,36 @@ message = ""
 
 # si la réponse est 4 => message vaut "bingo"
 # sinon               => message vaut "perdu"
-
+if reponse == "4":
+    message = "bingo"
+else:
+    message = "perdu"
 print(message)
 
 # version sur une seule phrase
-
+message = "bingo" if reponse == "4" else "perdu"
 print(message)
 
 # %% ---------------- opérateurs comparaison et logique ------------------
 
 # prendre un int. savoir si l'entier est négatif ou nul
+x = int(input("saisir un entier: "))
+if x <= 0: print(f"{x} est négatif ou nul")
+
 
 # savoir çà ET si c'est impair (idem en remplaçant ET par OU)
-
+if x <= 0 and x % 2 != 0: print(f"{x} est négatif ou nul ET impair")
+if x <= 0 or x % 2: print(f"{x} est négatif ou nul OU impair")  
 
 # %% --------------- valeur fausses des built-ins et négation --------------
 
 # prendre un str et la convertir en bool
-
+x = input("saisir une str: ")
+y = bool(x)
 # idem avec une str vide 
 
 # savoir si une str n'est pas vide
-
+if x: print(f"{x} n'est pas vide")
 # idem si elle est vide
 
 # %% -------------------------- boucle for -----------------------------------
@@ -50,12 +65,16 @@ print(message)
 
 mots = ["appeler", "un", "chat"]
 # pour mot dans mots: afficher mot
+for mot in mots:
+    print(mot)
+
 
 print("-"*20)
 
 nom_complet = "John DOE"
 # pour lettre dans nom_complet: afficher lettre 
-
+for lettre in nom_complet:
+    print(lettre)
 
 # %% --------- générer une "série d'entiers" avec range() -------------------------
 
