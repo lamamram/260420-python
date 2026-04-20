@@ -79,13 +79,18 @@ for lettre in nom_complet:
 # %% --------- générer une "série d'entiers" avec range() -------------------------
 
 # pour i dans une range de 5 entiers depuis 0: afficher i
-
+for i in range(5):
+    print(i)
 
 print("-"*20)
 
 # pour i dans une range entre 2 et 5: afficher i
 
+for i in range(2, 6):
+    print(i)
+
 print("-"*20)
+
 
 # pour i dans une range de 5 jusqu'à 0: afficher i
 
@@ -93,6 +98,12 @@ print("-"*20)
 # %% ---------- transformation de liste en préservant la liste d'origine ------
 
 fruits = ["pomme", "poire", "framboise"]
+
+new_fruits = []
+for fruit in fruits:
+    new_fruits.append(fruit.upper())
+print(fruits)
+
 
 # afficher une liste des fruits en majuscule sans modifier fruits
 
@@ -103,6 +114,8 @@ fruits = ["pomme", "poire", "framboise"]
 fruits = ["pomme", "poire", "framboise"]
 
 # itérer sur les indices de la liste
+for i in range(len(fruits)):
+    fruits[i] = fruits[i].upper()
 
 print(fruits)
 
@@ -112,6 +125,10 @@ print(fruits)
 fruits = ["pomme", "poire", "framboise"]
 
 # itérer à la fois avec les indices et les valeurs dans la boucle
+# i, fruit à chaque itération de la boucle => unpacking
+for i, fruit in enumerate(fruits):
+    fruits[i] = fruit.upper()
+
 
 print(fruits)
 
@@ -120,17 +137,30 @@ print(fruits)
 
 # prendre une range 5 pour afficher i et on s'arrête à 3
 print("-"*10 + "break" + "-"*10)
+for i in range(5):
+    if i == 3:
+        break
+    print(i)
 
 
 # prendre une range 5 pour afficher i, sans afficher 3
 print("-"*10 + "continue" + "-"*10)
 
+for i in range(5):
+    if i == 3:
+        continue
+    print(i)
 
 # saisir j par le clavier. prendre une range 5 pour afficher i
 # dans la boucle, casser la boucle si i==j
 # en sortant de la boucle, tester si la boucle est sortie à cause du break ou non 
 print("-"*10 + "else après for" + "-"*10)
-
+int(input("saisir un entier"))
+for i in range(5):
+    if i == j:
+        break
+else:
+    print("la boucle s'est terminée normalement, sans break")
 
 
 
@@ -145,8 +175,21 @@ temp = int(input("saisir une temperature en °C: "))
 #         on remet une pelettée de charbon dans la cheminée
 #         donc on resaisit temp à partir du clavier
 # afficher boom quand on sort de la boucle
-
+while temp < 100:
+    temp -= 10
+    print(temp)
+    if temp < 25:
+        temp = int(input("saisir une temperature en °C: "))
+print("boom")
 
 # %% --------------- boucle infinie: condition toujours vraie --------------------------
 
 # idem avec une boucle infinie
+while True:
+    temp -= 10
+    print(temp)
+    if temp < 25:
+        temp = int(input("saisir une temperature en °C: "))
+    if temp >= 100:
+        break
+print("boom")
