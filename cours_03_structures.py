@@ -217,4 +217,10 @@ print(rows)
 
 print(sorted(rows, key=lambda row: int(row.split("_")[1])))
 
-# %%
+# %% ------------------ fonctionnelle: avec fonction nommé --------------------
+
+def square(x):
+    return x**2
+
+numbers = [1, 2, 3, 4, 5]
+print(list(map(square, numbers)))
