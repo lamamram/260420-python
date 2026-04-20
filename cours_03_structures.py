@@ -193,3 +193,28 @@ while True:
     if temp >= 100:
         break
 print("boom")
+
+# %% ----------------- map ---------------------
+
+fruits = ["pomme", "poire", "framboise"]
+
+# programmation fonctionnelle et + performante que les boucles for pour transformer une liste
+print(list(map(str.upper, fruits)))
+
+# %% ----------------- fonctionnelle: filter ---------------------
+
+fruits = ["pomme", "poire", "framboise"]
+# commencent par "p"
+print(list(filter(lambda fruit: fruit[0].lower()== 'p',fruits)))
+
+# %% ------------------ fonctionnelle sorted -------------
+import random
+
+rows = [ f"row_{i}" for i in range(20)]
+print(rows)
+random.shuffle(rows)
+print(rows)
+
+print(sorted(rows, key=lambda row: int(row.split("_")[1])))
+
+# %%
