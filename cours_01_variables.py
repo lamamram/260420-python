@@ -16,6 +16,12 @@ print(x)
 
 print(id(x))
 
+# supprimer une variable
+
+del x
+
+print(x)
+
 
 
 # %% --------------- types built-in et politique de nommage -----------

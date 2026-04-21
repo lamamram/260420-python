@@ -113,11 +113,11 @@ mots.pop() # pop : supprime et retourne le dernier élément de la liste
 
 # supprimer le premier élément //
 
-mots
+mots.pop(0)
 
 # supprimer la 1ère occurence de chat 
 
-mots
+mots.remove("chat")
 
 # %% --------------- listes et tuples / str : mutabilité et immutabilité ------------
 mots = ["nommer", "un", "chien"]
