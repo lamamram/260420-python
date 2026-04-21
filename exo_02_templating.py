@@ -32,4 +32,28 @@ while "((" in _template:
   _template = _template.replace("((" + key + "))", injections.get(key, "N/A"))
 
 print(_template)
+# %% ----- portage de la cellule précédente en fonction ----------
+"""
+technique
+1/ entourer le code avec l'entête de def et ajouter le nom
+2/ transformer le print ou affectation finale en return
+3/ réféchir sur les paramètres d'entrée (positionnels / centraux, et optionnels => valeur par défaut) et de sortie
+4/ refactorer le code pour utiliser les paramètres d'entrée et construire la sortie
+5/ tester dans différents cas
+"""
+
+
+def parse_template(tpl: str, data: dict, delims: tuple=("{{", "}}"), default="N/A") -> str:
+  while delims[0] in tpl:
+    index_start = tpl.find(delims[0]) + len(delims[0])
+    index_end = tpl.find(delims[1])
+    key = tpl[index_start:index_end]
+    tpl = tpl.replace(delims[0] + key + delims[1], str(data.get(key, default)))
+
+  return tpl
+
+print(parse_template(_template, injections, delims=("((", "))")))
+
+print(parse_template("blabla {{value}}", {"value": 50}))
+
 # %%

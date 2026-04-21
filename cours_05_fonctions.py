@@ -91,16 +91,21 @@ print(l, id(l)) # l global a changé car l est mutable => le l local
 # 2. le prix est arbitraire => paramètre positionnel / obligatoire
 # MAIS on considère que la valeur par défaut du taux est 20 => paramètre nommé / optionnel
 
+# def calcul_tva(taux: float=20, prix_ht: float) -> float: # erreur: positionnel et après nommés
+def calcul_tva(prix_ht: float, taux: float = 20) -> float:
+    """cette fonction retourne la valeur de tva sur un prix ht et un taux"""
+    return prix_ht * taux / 100
 
 # appeler la fonction sans paramètres
 
 print(f"""appel positionnel: 199 -> prix_ht, 5.5 -> taux 
-       => { "???"}""")
+       => { calcul_tva(199, 5.5) }""")
 print(f"""appel avec un paramètre optionnel: 199 -> prix ht et rien -> taux
-       => { "???" }""")
+       => { calcul_tva(199) }""")
 print(f"""appel nommé: les valeurs sont fléchées vers les paramètres 
        => pas besoin d'ordre => { "???" }""")
 
+# calcul_tva(taux=5.5, 199) # erreur: d'abord positionnel puis nommé
 # %% ---------------- paramètres "variadiques" *args ---------------------
 ## *args: permet de définir un nombre variable de paramètres positionnels
 ## le bloc peut alors utiliser un tuple args
