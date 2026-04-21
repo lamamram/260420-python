@@ -22,3 +22,14 @@ injections = {
     "section": "30",
     "debit": "2"
 }
+
+# %%
+
+while "((" in _template:
+  index_start = _template.find("((") + 2
+  index_end = _template.find("))")
+  key = _template[index_start:index_end]
+  _template = _template.replace("((" + key + "))", injections.get(key, "N/A"))
+
+print(_template)
+# %%
