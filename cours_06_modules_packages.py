@@ -7,16 +7,26 @@
 ##    est appelé module principal
 
 # 1. créer un module tools qui contient la fonction de l'exercice template
-# 2. importer le module est exécuter la fonction dans le module principal
+import tools
 
+# 2. importer le module est exécuter la fonction dans le module principal
+# tools est une variable de type module qu'on appelle espace de nom du module
+tools.parse_template("blabla {{value}}", {"value": 50}, debug=tools.DEBUG)
 
 # %% -- à partir d'un module, importer une fonction => sans espace de nom ----
 # idem sans espace de nom
 
+from tools import parse_template, DEBUG
+
+parse_template("blabla {{value}}", {"value": 50}, debug=DEBUG)
+
 # %% -- gérer les conflits de noms => alias
 # idem en changeant le nom de la fonction à l'import
+from tools import parse_template as parse
 
 parse_template = "qqch d'autre"
+
+parse("blabla {{value}}", {"value": 50}, debug=DEBUG)
 
 # %% --- exemples d'utilisation de modules de la bibliothèque standard ------
 # exemple de datetime
