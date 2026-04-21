@@ -114,22 +114,53 @@ print(f"""appel nommé: les valeurs sont fléchées vers les paramètres
 # on veut afficher tous les mots soudés par "-" à partir de 2 prints
 # et les 2 paramètres nommées "sep" et "end"
 
-print("bonjour", "tout", "le", "monde")
-print("comment", "allez", "vous")
+print("bonjour", "tout", "le", "monde", sep="-", end="-")
+print("comment", "allez", "vous", sep="-")
 
 
 # créer une fonction addition qui peut ajouter un nombre quelconque de params
+def addition(*args: int) -> int:
+    """cette fonction retourne la somme de tous les paramètres"""
+    somme = 0
+    for arg in args:
+        somme += arg
+    return somme
+
+print(addition(1, 2, 3, 4, 5))
+
+# %% -------------- *args dans l'appel -------------
+
+def ma_fonction(a, b, c):
+    return a, b, c
+
+l = [1, 2, 3]
+print(ma_fonction(l[0], l[1], l[2])) # erreur: 1 paramètre positionnel alors que la fonction en attend 3
+print(ma_fonction(*l)) # unpacking de la liste l en tant que paramètres
 
 # %% paramètres "variadiques" **kwargs
 ## **kwargs: permet de définir un nombre variable de paramètres nommés
 ## le bloc peut alors utiliser un dict kwargs
 
-# créer une fonction create_user avec 
+# créer une fonction create_user avec
+def create_user(prenom: str, nom: str, **kwargs) -> dict:
+     dico = {"prenom": prenom, "nom": nom}
+     for key, value in kwargs.items():
+         dico[key] = value
+     return dico
 # 1. le prénom et le nom obligatoires
 # 2. et un nombre quelconque de paramètres nommés/optionnels
 # 3. pour créer et retourner un dictionnaire user 
 #    avec les paramètres obligatoires et les autres s'ils existent (age, taille...)
+print(create_user("John", "Doe", age=30, taille=1.75))
 
+## ------------ **kwargs dans l'appel -------------
+
+def ma_fonction(a, b, c):
+    return a, b, c
+
+dico = {"a": 1, "b": 2, "c": 3}
+print(ma_fonction(dico["a"], dico["b"], dico["c"])) # erreur: 1 paramètre positionnel alors que la fonction en attend 3
+print(ma_fonction(**dico)) # unpacking du dict dico en tant que paramètres
 
 
 
