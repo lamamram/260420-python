@@ -259,4 +259,60 @@ print(acc.get_client_full_name())
 acc.bonus_10()
 print(acc.get_balance())
 
+# %% ------------------------- héritage multiple + polymorphisme --------------------
+# classe abstraite = impossible d'instancier
+# abstractmethod est un décorateur qui rend une méthode abstraite
+from abc import ABC, abstractmethod
+
+# "Interface" en python
+# une interface garanti un ensemble de méthodes 
+# (des noms des paramètres d'i/o) liés à un SAVOIR FAIRE
+class AbstractAccount(ABC):
+  @abstractmethod
+  def __init__(self, balance: float) -> None: pass
+
+  @abstractmethod
+  def get_balance(self) -> float: pass
+
+
+class BasicAccount(AbstractAccount):
+  def __init__(self, balance: float, overdraft: float):
+    self.balance = balance
+    self.overdraft = overdraft
+  
+  def withdraw(self, amount: float):
+    if amount <= self.balance + self.overdraft: self.balance -= amount
+  
+  def get_balance(self):
+    return self.balance
+
+class SavingAccount(AbstractAccount):
+  def __init__(self, balance: float, rate: float):
+    self.balance = balance
+    self.rate = rate
+  
+  def interest(self):
+    self.balance += self.balance*self.rate/100
+
+class PremiumAccount(BasicAccount, SavingAccount):
+  def __init__(self, balance: float, overdraft: float, rate: float):
+    # indétermination: quel __init__ est utilisé ? en réalité il ya un algo MRO: ordre de résolution de méthodes
+    # super().__init__(balance, overdraft)
+    # plus simple
+    BasicAccount.__init__(self, balance, overdraft)
+    SavingAccount.__init__(self, balance, rate)
+
+  def get_balance(self):
+    # ici super ira chercher de BasicAccount
+    return super().get_balance()
+
+if __name__ == "__main__":
+  p_acc = PremiumAccount(1000, 200, 2.5)
+  print(p_acc.get_balance(), p_acc.overdraft, p_acc.rate)
+  p_acc.withdraw(500)
+  p_acc.interest()
+  print(f"nouveau solde: {p_acc.get_balance()}")
+   
+  print(PremiumAccount.mro()) # ordre simple des résolution des méthodes
+
 # %%
