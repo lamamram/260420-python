@@ -19,6 +19,9 @@
 5. écrire le programme principal pour utiliser le package
 """
 
+# import text_analyser.text_cleaner as tc
+from text_analyser.text_cleaner import Cleaner
+
 if __name__ == "__main__":
   text = """
 Python est un langage de programmation interprété, 
@@ -38,3 +41,7 @@ par macOS, ou encore Android, iOS, et peut aussi être traduit en Java ou .NET.
 Il est conçu pour optimiser la productivité des programmeurs en offrant des outils de haut niveau et 
 une syntaxe simple à utiliser. 
 """
+
+# tc.Cleaner()
+cleaner = Cleaner(text)
+print(cleaner.clean())
