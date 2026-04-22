@@ -40,29 +40,78 @@ if __name__ == "__main__":
 # %% --- même exemple en Programmation Orientée Objet (POO) ---------
 
 ## REM. Classe  == Type de donnée en python
-## les classes sont nommées en CamelCase != snake_case
+## les classes sont nommées en PascalCase ou camelCase != snake_case
+class Account:
 
-    
-    # "variables internes" => ATTRIBUTS
+    # "variables internes" => ATTRIBUTS et en particuliuer les attributs de classe
+    balance: float = 0
+    overdraft: float = 0
 
-
-    # "fonctions internes" => METHODE == ATTRIBUT de type fonction
-       # un attribut/méthode de forme __xxxx__ est un attribut/méthode MAGIQUE 
-       # self est l'objet lui même
+    # "fonctions internes" => METHODE == ATTRIBUT de type fonction 
+       # account est l'objet lui même 
+       # => donc on a pas besoin de l'ajouter quand l'objet instancié appelle la méthode
        # on accède aux éléments internes avec l'opérateur "."
+
+    def withdraw(account, amount: float):
+      if amount < 0:
+        print(f"Transaction refusée: {amount} négatif")
+      elif amount > account.balance + account.overdraft:
+        print(f"Transaction refusée: {amount} fonds insuffisants")
+      else:
+        account.balance -= amount
+        print(f"Transaction acceptée")
 
 ## programme principal
 
-## REM. on peut appeler une classe et retourner une variable de type Account 
-## => le terme exact est instancier (créer) un objet de cette classe
+if __name__ == "__main__":
+  
+  ## REM. on peut appeler une classe et retourner une variable de type Account 
+  ## => le terme exact est instancier (créer) un objet de cette classe
+  # 1. créer un objet account à partir de l'instanciation de la classe()
+  personal_account = Account()
+  # 2. donner 1000 au solde de l'objet account et 200 au découvert d'account
+  personal_account.balance = 1000
+  personal_account.overdraft = 200
+  # 3. faire un retrait
+  personal_account.withdraw(500)
+  print(f"nouveau solde: {personal_account.balance}")
 
-# 1. créer un objet account à partir de l'instanciation de la classe()
+# %% --------------------- utilisation de la méthode magique __init__() ------------
 
-# 2. donner 1000 au solde de l'objet account et 200 au découvert d'account
+class Account:
 
-# 3. faire un retrait
+    # en utilisant __init__ on a pas forcément besoin d'attributs de classe
+    # balance: float = 0
+    # overdraft: float = 0
+ 
+    # self est l'objet lui même
+    # un attribut/méthode de forme __xxxx__ est un attribut/méthode MAGIQUE 
+    # def init_account(self, balance: float, overdraft: float) -> dict:
+    def __init__(self, balance: float, overdraft: float):
+      # ici ce sont des attributs d'objets
+      self.balance = balance
+      self.overdraft = overdraft
+      # return self: pas besoin car l'objet est DEJA CREE !!!
 
-# 4. refaire et 2. 3. avec la méthode __init__
+
+    def withdraw(self, amount: float):
+      if amount < 0:
+        print(f"Transaction refusée: {amount} négatif")
+      elif amount > self.balance + self.overdraft:
+        print(f"Transaction refusée: {amount} fonds insuffisants")
+      else:
+        self.balance -= amount
+        print(f"Transaction acceptée")
+
+## programme principal
+
+if __name__ == "__main__":
+  
+  personal_account = Account(1000, 200)
+  # personal_account = Account()
+  # personal_account.init_account(1000, 200)
+  personal_account.withdraw(500)
+  print(f"nouveau solde: {personal_account.balance}")
 
 
 # %% ------------- en python: TOUT EST OBJET ---------------------
