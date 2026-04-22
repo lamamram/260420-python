@@ -10,18 +10,32 @@ account = {
 }
 
 # créer une fonction init_account qui va mettre à jour les champs d'un dict account en param
-# à partir de paramètres blance et overdraft
-
+# à partir de paramètres balance et overdraft
+def init_account(account: dict, balance: float, overdraft: float) -> dict:
+  account["balance"] = balance
+  account["overdraft"] = overdraft
+  return account
 
 # créer une fonction withdraw pour effectuer un retrait d'un montant sur un compte en param.
-
+def withdraw(account: dict, amount: float):
+  if amount < 0:
+    print(f"Transaction refusée: {amount} négatif")
+  elif amount > account["balance"] + account["overdraft"]:
+    print(f"Transaction refusée: {amount} fonds insuffisants")
+  else:
+    account["balance"] -= amount
+    print(f"Transaction acceptée")
 
 ## programme principal
+if __name__ == "__main__":
+  # initialiser le dictionnaire account avec un solde de 1000 et un découvert de 200
+  personal_account = init_account(account, balance=1000, overdraft=200)
+  # saisir un montant, effectuer le retrait et afficher le solde après
+  amount = input("Entrez un montant : ")
+  amount = int(amount)
 
-# initialiser le dictionnaire account avec un solde de 1000 et un découvert de 200
-
-# saisir un montant, effectuer le retrait et afficher le solde après
-
+  withdraw(personal_account, amount)
+  print(f"nouveau solde: {personal_account["balance"]}")
   
 # %% --- même exemple en Programmation Orientée Objet (POO) ---------
 

@@ -12,6 +12,7 @@ if amount < 0:
 elif amount > balance + overdraft:
     print(f"Transaction refusée: {amount} fonds insuffisants")
 else:
+    balance -= amount
     print("Transaction acceptée")
 
 # sinon mais si le montant trop important => "Transaction refusée: {montant} fonds insuffisants" 
