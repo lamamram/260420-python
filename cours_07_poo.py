@@ -205,7 +205,7 @@ if __name__ == "__main__":
 
 # %% -------------------------- héritage simple -----------------------------
 
-# reprendre l'exemple précédent sachant qu'un client EST un personne avec un prénom et un nom
+# reprendre l'exemple précédent sachant qu'un client EST une personne avec un prénom et un nom
 ## person est considérée comme classe parente de client
 ## client est //                      enfant de personne , hérite de personne
 
@@ -246,3 +246,15 @@ if __name__ == "__main__":
 
 # %% ------------------------- injection de dépendances -----------------------------
 
+# relation de type AVOIR entre une classe "utilisateur" et une autre qui est une dépendance
+# l'utilisateur mange sa dépendance à l'instanciation et utilise LA SIGNATURE PUBLIQUE de cette dépendance
+
+from tools import Account, Client
+
+cl = Client("john", "doe", "2016-04-22")
+acc = Account(1000, 200, cl)
+
+print(acc.get_client_full_name())
+
+
+# %%
