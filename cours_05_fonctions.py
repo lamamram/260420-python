@@ -65,22 +65,22 @@ print(f"résultat: {ret} et erreur: {err}")
 
 # %% --------------- passage en référence de types mutables et immutables ------------------
 
-def test_immmutable(x: int):
+def immutable(x: int):
       x += 1
-      print(x, id(x))
+      print("x: local", x, id(x))
       return x
 
 x = 5
-test_immmutable(x)
-print(x, id(x)) # x global n' a pas changé car x est immutable => le x local ne peut pas être référencé à x global
+print("global avant appel", x, id(x))
+x = immutable(x)
+print("global après réaffectation", x, id(x)) # x global prend l'id du x local
 
-def immmutable(l: list, elem: int):
+def mutable(l: list, elem: int):
       l.append(elem)
       print(l, id(l))
-      return l
 
 l = [1, 2, 3]
-immmutable(l, 4)
+mutable(l, 4)
 print(l, id(l)) # l global a changé car l est mutable => le l local
 
 # %% --------------- types de paramètres ----------------------------------
