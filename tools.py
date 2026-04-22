@@ -17,4 +17,6 @@ def parse_template(
 
   return tpl
 
-# print(parse_template("blabla {{value}}", {"value": 50}, debug=DEBUG))
+# ici ce bloc empêche le print quand le module est importé
+if __name__ == "__main__":
+    print(parse_template("blabla {{value}}", {"value": 50}, debug=DEBUG))

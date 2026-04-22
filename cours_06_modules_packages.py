@@ -32,7 +32,7 @@ parse("blabla {{value}}", {"value": 50}, debug=DEBUG)
 # exemple de datetime
 # importer l'objet datetime à partir du module datetime
 
-from datetime import datetime
+from datetime import datetime, timedelta
 
 # créer une variable dt représente la date d'aujourd'hui avec la signature de base 
 
@@ -53,8 +53,14 @@ now = datetime.now()
 delta = fin_of_day - now
 print(delta.seconds // 3600, (delta.seconds % 3600) // 60)
 
+# date + duree = date
+cuisson_oeuf_coque = timedelta(minutes=3)
+maintenant = datetime.now()
+a_table = maintenant + cuisson_oeuf_coque
+
 # %% ------------- import d'un module d'un package ------------------------
 
+# ici le "." on appelle çà le "chemin python": Python Path (comme "/" ou "\")
 import utils.tools
 ## un package est un dossier qui contient un ou des modules ou des sous packahes 
 ## et qui contient un fichier nommé __init__.py qui peut être vide
@@ -84,3 +90,7 @@ print(f"Nom du module importé: {__name__}")
 # 2. afficher le nom d'un module importé
 # 3. comment certifier qu'un code d'un module donné ne s'exécutera que si le module est principal
 # cf => dans tools.py
+
+# ici c'est une convention qui fait référence au int main(void){} en C
+if __name__ == "__main__":
+  tools.parse_template("blabla {{value}}", {"value": 50}, debug=tools.DEBUG)
