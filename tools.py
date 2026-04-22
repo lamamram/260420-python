@@ -65,7 +65,14 @@ class Account:
     si la date courante est le 10ème anniv du client
     alors le solde est incrémenté de 100
     """
-    pass
+    now = datetime.now().date()
+    cl_dj = self.__client.date_joint
+    if (
+      now.month == cl_dj.month 
+      and now.day == cl_dj.day
+      and (now.year - cl_dj.year == 10)
+    ):
+      self.__balance += 100 
    
 
 # ici ce bloc empêche le print quand le module est importé

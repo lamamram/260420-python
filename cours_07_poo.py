@@ -256,5 +256,7 @@ acc = Account(1000, 200, cl)
 
 print(acc.get_client_full_name())
 
+acc.bonus_10()
+print(acc.get_balance())
 
 # %%
