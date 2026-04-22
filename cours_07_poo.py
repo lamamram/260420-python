@@ -114,6 +114,49 @@ if __name__ == "__main__":
   print(f"nouveau solde: {personal_account.balance}")
 
 
+# %% ------------------ encapsulation frauduleuse en python ------------------
+
+class Account:
+
+  def __init__(self, balance, overdraft):
+    self.balance = balance
+    # préfixer un attribut avec "__" rend l'attribut "privé"
+    self.__overdraft = overdraft
+  
+  def get_overdraft(self) -> float:
+    """
+    getter pour retourner l'attribut "privé" à partir de l'intérieur de la classe
+    """
+    return self.__overdraft 
+
+if __name__ == "__main__":
+  acc = Account(1000, 200)
+  # par défaut les attributs sont publics
+  print(acc.balance)
+  
+  amount = 500
+  # AttributeError: on ne peut pas lire les attributs de type "__"
+  # limit = acc.balance + acc.__overdraft
+  # WTF: écriture sur un attribut "__" ???
+  acc.__overdraft = 400
+  limit = acc.balance + acc.__overdraft
+  
+  if amount <= limit:
+    acc.balance -= amount
+    print(f"nouveau solde: {acc.balance}", f"nouveau découvert: {acc.get_overdraft()}")
+    print(f"attributs REELS de l'objet acc: {dir(acc)}")
+    # l'attribut "prive" crée dans __init__ s'appelle en réalité '_Account__overdraft'
+    print(acc._Account__overdraft, acc.__overdraft)
+    # le fameur attribut __overdraft n'existe dans le programme principal
+    # MAIS si je le créé => ligne 141, je peux l'utiliser MAIS il n'est pas _Account__overdraft !!!
+
+##### MORALE DE L'HISTOIRE ##################
+"""
+il n'ya pas en réalité d'attributs privés => pas d'encapsulation effective
+par contre, on peut l'utiliser pour STRUCTURER VOS CLASSES
+protected en python c'est _var => public mais n'est pas spécifié dans la documentation
+"""
+
 # %% ------------- en python: TOUT EST OBJET ---------------------
 
 # instancier un objet t d'une classe Truc vide
