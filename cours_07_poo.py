@@ -158,8 +158,16 @@ protected en python c'est _var => public mais n'est pas spécifié dans la docum
 """
 
 # %% ------------- en python: TOUT EST OBJET ---------------------
-
 # instancier un objet t d'une classe Truc vide
+class Truc:
+  pass # un mot clé et une instruction qui ne fait rien pour créer un bloc vide !!!
+
+t = Truc()
+
+dico = dict(k1=1, k2=2)
+
+print(type(t), type(dico))
+print(isinstance(t, Truc), isinstance(dico, dict))
 
 # créer un dictionnaire d à partir de la fonction dict et des paramètres nommés
 
