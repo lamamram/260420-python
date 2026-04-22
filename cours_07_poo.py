@@ -182,6 +182,26 @@ print(isinstance(t, Truc), isinstance(dico, dict))
 #     get_full_name: retourne le prénom capitalisé et le nom en majuscule
 #     get_date_joint: retourne la date dans le format voulu en paramètre
 
+from datetime import datetime
+class Client:
+
+  def __init__(self, firstname: str, name: str, date_joint: str, format: str="%Y-%m-%d"):
+    self.firstname = firstname
+    self.name = name
+    self.date_joint: datetime = datetime.strptime(date_joint, format)
+
+  def get_full_name(self) -> str:
+    return f"{self.firstname.capitalize()} {self.name.upper()}"
+
+  def get_date_joint(self, format: str="%Y-%m-%d") -> str:
+    return self.date_joint.strftime(format)
+
+if __name__ == "__main__":
+  client = Client("john", "doe", "2024-01-01")
+  print(client.get_full_name())
+  print(client.get_date_joint("%d/%m/%Y"))
+
+
 
 # %% -------------------------- héritage simple -----------------------------
 
@@ -199,3 +219,30 @@ print(isinstance(t, Truc), isinstance(dico, dict))
 
 # classe client est une personne
 #    utilise prénom, nom et date_joint      
+
+class Person:
+  
+  def __init__(self, firstname: str, name: str):
+    self.firstname = firstname
+    self.name = name
+
+  def get_full_name(self) -> str:
+    return f"{self.firstname.capitalize()} {self.name.upper()}"
+  
+class Client(Person):
+
+  def __init__(self, firstname: str, name: str, date_joint: str, format: str="%Y-%m-%d"):
+    # super() permet d'appeler une méthode de la classe parente
+    super().__init__(firstname, name)
+    self.date_joint: datetime = datetime.strptime(date_joint, format)
+
+  def get_date_joint(self, format: str="%Y-%m-%d") -> str:
+    return self.date_joint.strftime(format)
+
+if __name__ == "__main__":
+  client = Client("john", "doe", "2024-01-01")
+  print(client.get_full_name())
+  print(client.get_date_joint("%d/%m/%Y"))
+
+# %% ------------------------- injection de dépendances -----------------------------
+
