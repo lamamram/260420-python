@@ -59,6 +59,13 @@ class Account:
   
   def get_client_full_name(self):
      return self.__client.get_full_name()
+  
+  def bonus_10(self):
+    """
+    si la date courante est le 10ème anniv du client
+    alors le solde est incrémenté de 100
+    """
+    pass
    
 
 # ici ce bloc empêche le print quand le module est importé
