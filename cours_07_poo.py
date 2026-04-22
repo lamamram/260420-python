@@ -315,4 +315,77 @@ if __name__ == "__main__":
    
   print(PremiumAccount.mro()) # ordre simple des résolution des méthodes
 
+# %% ------------------------ méthodes ------------------------
+
+class Account: pass
+class Account:
+  def __init__(self, balance, overdraft):
+    self.balance = balance
+    self.overdraft = overdraft
+  
+  def __str__(self):
+    return f"accout: balance: {self.balance}, overdraft: {self.overdraft}"
+  
+  def __eq__(self, acc: Account) -> bool:
+    return self.balance == acc.balance
+  
+  def __add__(self, acc: Account) -> float:
+    return self.balance + acc.balance
+  
+if __name__ == "__main__":
+  acc = Account(1000, 200)
+  print(acc)
+  acc2 = Account(2000, 300)
+
+  print(acc == acc2)
+  print(acc + acc2)
+
+# %% -------------- itérateur / itérable ---------------
+
+# un itérateur/itérable : une classe qui implémente les 3 méthodes 
+# __init__, __iter__, __next__
+class MyRange: pass
+class MyRange:
+
+  def __init__(self, limit=10):
+    """ init pour la condition d'arrêt """
+    self.limit = limit
+  
+  def __iter__(self) -> MyRange:
+    """ un itérateur == itérable avec un compteur """
+    self.cpt = 0
+    return self
+  
+  def __next__(self):
+    if self.cpt < self.limit:
+      ret = self.cpt
+      self.cpt += 1
+      return ret
+    else:
+      raise StopIteration
+
+# mr est un itérable
+mr = MyRange()
+
+# iter exécute mr.__iter__() pour faire d'it un itérateur
+it = iter(mr)
+
+print("-"*10 + "pas à pas avec next" + "-"*10)
+
+for _ in range(10):
+  print(next(it))
+
+# recharge l'itérateur
+it = iter(mr)
+print(next(it)) # => l'itération de TROP sauf si le compteur est rechargé
+
+print("-"*10 + "boucle for" + "-"*10)
+
+# 1. recharge / créé le compteur
+# enchaine les next
+# et CAPTURE l'exception StopIteration
+for i in it:
+  print(i)
+
+
 # %%
