@@ -103,7 +103,7 @@ print(f"""appel positionnel: 199 -> prix_ht, 5.5 -> taux
 print(f"""appel avec un paramètre optionnel: 199 -> prix ht et rien -> taux
        => { calcul_tva(199) }""")
 print(f"""appel nommé: les valeurs sont fléchées vers les paramètres 
-       => pas besoin d'ordre => { "???" }""")
+       => pas besoin d'ordre => { calcul_tva(taux=5.5, prix_ht=199) }""")
 
 # calcul_tva(taux=5.5, 199) # erreur: d'abord positionnel puis nommé
 # %% ---------------- paramètres "variadiques" *args ---------------------
@@ -152,6 +152,7 @@ def create_user(prenom: str, nom: str, **kwargs) -> dict:
 # 3. pour créer et retourner un dictionnaire user 
 #    avec les paramètres obligatoires et les autres s'ils existent (age, taille...)
 print(create_user("John", "Doe", age=30, taille=1.75))
+print(create_user("John", "Doe"))
 
 ## ------------ **kwargs dans l'appel -------------
 
@@ -164,3 +165,5 @@ print(ma_fonction(**dico)) # unpacking du dict dico en tant que paramètres
 
 
 
+
+# %%
