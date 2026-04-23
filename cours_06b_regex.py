@@ -49,6 +49,8 @@ pattern = "[013456789][0-9]{4}|2[0-9AB][0-9]{3}"
 print("trouver toutes les occurences du pattern dans la cible", 
       re.findall(pattern=pattern, string="mon zipcode est 44500 non 75013")
 )
+# avec objet Match
+# re.finditer()
 
 # %%  ------------------- méthode sub --------------------------
 ####### sub(): search & replace du pattern

@@ -267,7 +267,7 @@ from abc import ABC, abstractmethod
 # "Interface" en python
 # une interface garanti un ensemble de méthodes 
 # (des noms des paramètres d'i/o) liés à un SAVOIR FAIRE
-class AbstractAccount(ABC):
+class IAccount(ABC):
   @abstractmethod
   def __init__(self, balance: float) -> None: pass
 
@@ -275,7 +275,7 @@ class AbstractAccount(ABC):
   def get_balance(self) -> float: pass
 
 
-class BasicAccount(AbstractAccount):
+class BasicAccount(IAccount):
   def __init__(self, balance: float, overdraft: float):
     self.balance = balance
     self.overdraft = overdraft
@@ -286,7 +286,7 @@ class BasicAccount(AbstractAccount):
   def get_balance(self):
     return self.balance
 
-class SavingAccount(AbstractAccount):
+class SavingAccount(IAccount):
   def __init__(self, balance: float, rate: float):
     self.balance = balance
     self.rate = rate
@@ -306,6 +306,13 @@ class PremiumAccount(BasicAccount, SavingAccount):
     # ici super ira chercher de BasicAccount
     return super().get_balance()
 
+class Manager:
+  ## POLYMORPHISE == demander un objet de type IAccount 
+  # ==> j'utilise n'importe quel objet qui implémente toutes les signatures de IAccount
+  def __init__(self, account: IAccount):
+    self.__account = account
+    print(self.__account.get_balance())
+
 if __name__ == "__main__":
   p_acc = PremiumAccount(1000, 200, 2.5)
   print(p_acc.get_balance(), p_acc.overdraft, p_acc.rate)
@@ -324,6 +331,7 @@ class Account:
     self.overdraft = overdraft
   
   def __str__(self):
+    """ retour de la conversion en str et print """
     return f"accout: balance: {self.balance}, overdraft: {self.overdraft}"
   
   def __eq__(self, acc: Account) -> bool:
@@ -332,6 +340,9 @@ class Account:
   def __add__(self, acc: Account) -> float:
     return self.balance + acc.balance
   
+  def __getitem__(self, key):
+    return getattr(self, key)
+  
 if __name__ == "__main__":
   acc = Account(1000, 200)
   print(acc)
@@ -339,6 +350,8 @@ if __name__ == "__main__":
 
   print(acc == acc2)
   print(acc + acc2)
+
+  print(acc["balance"])
 
 # %% -------------- itérateur / itérable ---------------
 
