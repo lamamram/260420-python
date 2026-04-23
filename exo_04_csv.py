@@ -24,3 +24,28 @@ hint: module os et pathlib.Path
 modus operandi: faire ceci en n'ouvrant le csv en lecture qu'une seule fois
 """
 
+import requests
+
+URL = "https://www.afnic.fr/wp-media/ftp/documentsOpenData/202503_OPENDATA_A-NomsDeDomaineEnPointFr.zip"
+
+archive_name = URL.split("/")[-1]
+
+try:
+   # requête http de type GET de l'url qui retourne une réponse http
+   response = requests.get(URL)
+
+   # regarde de code de retour de la réponse
+   if 200 <= response.status_code < 300:
+   # regarde le type de donées
+      if "application/zip" in response.headers["content-type"]:
+      # response.content contient l'archive en octets
+      # wb = création avec contenu binaire
+         with open(f"./{archive_name}", mode="wb") as f:
+            f.write(response.content)
+   # en cas de mauvais code
+   else:
+      raise ValueError(f"réponse en erreur : {response.status_code}")
+except (requests.ConnectionError, ValueError) as e:
+   print(e)
+
+# %%
