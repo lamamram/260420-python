@@ -91,4 +91,41 @@ with open(p_data / DNS_NAME, "r", encoding="utf-8") as f:
          rows = []
 
 
+# %% ---------------------------- idem avec pandas -----------------------------
+
+import pandas as pd
+
+URL = "https://www.afnic.fr/wp-media/ftp/documentsOpenData/202503_OPENDATA_A-NomsDeDomaineEnPointFr.zip"
+DNS_NAME = "dns.csv"
+
+# créer un DataFrame à partr d'un fichier csv archivé sur une machine distante
+dns_df = pd.read_csv(URL, sep=";", encoding='utf-8')
+dns_df
+
+
+
+
 # %%
+dns_df.to_csv(
+   "dns.zip", 
+   sep=";", 
+   encoding="utf-8", 
+   index=False,
+   compression={
+      "archive_name": "dns.csv",
+      "method": "zip"
+   }
+)
+# %%
+dns_subset_df = pd.read_csv(
+  "dns.zip",
+  sep=";",
+  encoding="utf-8",
+  nrows=1000000,
+  usecols=["Nom de domaine", "Pays BE"]
+)
+# %%
+# regarde les pays les plus nombreux dans ce fichier
+gb =dns_subset_df.groupby("Pays BE")
+count_df = gb["Nom de domaine"].count().sort_values(ascending=False)
+count_df
