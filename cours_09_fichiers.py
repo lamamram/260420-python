@@ -145,6 +145,24 @@ with open("./users.csv", "w", encoding="utf-8") as f:
 # utiliser le writer pour écrire le header du csv à partir des clés des dict
 # //                             les données du csv //         valeurs du dict
 
+# %% ------------------- idem mais avec le bon outil -------------------------
+import csv
+
+users = [
+  {"firstname":"Joe", "lastname": "Doe", "age": 22, "height": 1.75, "comment": "blablab ... ; blabliblo"},
+  {"firstname": "Jane", "lastname": "Austen", "age": 34, "height": 1.79, "comment": "blabla"},
+]
+
+with open("./users.csv", "w", encoding="utf-8") as f:
+  d_writer = csv.DictWriter(
+    f, fieldnames=users[0].keys(),
+    delimiter=";",
+    lineterminator="\n"
+  )
+  d_writer.writeheader()
+  d_writer.writerows(users)
+
+
 # %% --------------- lire les lignes de csv ---------------
 
 # idem mais en lecture
