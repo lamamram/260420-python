@@ -2,17 +2,27 @@
 
 # recréer la fonction division du cours des fonctions sans contôle
 
+def division(a: float, b: float) -> float:
+       """cette fonction retourne le résultat de la division de a par b"""
+      #  if b == 0:
+      #         return "division par zéro impossible"
+       return a / b
+
 ## REM: en peut entourer un bout de code entre 
 ## l'entête try: 
 ##      alors le bloc du try s'exécute jusqu'à qu'une erreur survienne
 ##      s'il n'ya pas d'erreur le bloc try s'exécute jusq'au bout
 ## ET l'entête except
 ##       s'il y a erreur, le bloc try s'interromp et exécute le bloc except
+if __name__ == "__main__":
 
-number, num, denom = 10, 5, 10
-# number, num, denom = 10, 5, 0
-resultat = division(num, denom)
-print(f"application d'un ratio à un nombre: {number * resultat}")
+  try:
+    # number, num, denom = 10, 5, 10
+    number, num, denom = 10, 5, 0
+    resultat = division(num, denom)
+    print(f"application d'un ratio à un nombre: {number * resultat}")
+  except:
+      print("il ya un pb")
 
 # gérer le pb de dénominateur avec une exception
 
