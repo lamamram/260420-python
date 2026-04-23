@@ -165,6 +165,17 @@ with open("./users.csv", "w", encoding="utf-8") as f:
 
 # %% --------------- lire les lignes de csv ---------------
 
+import csv
+
+users = []
+
+with open("./users.csv", mode="r", encoding="utf-8") as f:
+  reader = csv.reader(f, delimiter=";")
+  header = next(reader)
+  for row in reader:
+    users.append(dict(zip(header, row)))
+
+print(users)
 # idem mais en lecture
 # protéger l'ouverture du fichier s'il le fichier existe
 # tip: on peut itérer de façon manuelle un itérable avec la fonction next()
@@ -172,6 +183,8 @@ with open("./users.csv", "w", encoding="utf-8") as f:
 
 
 # %% ----------------------- écriture en JSON ----------------------
+
+import json
 
 # idem avec json 
 # sachant que les objets et les dictionnaires python sont très proches
@@ -183,12 +196,19 @@ users = [
   {"firstname": "Jane", "lastname": "Austen", "age": 34, "height": 1.79, "comment": "blabla"},
 ]
 
-
+with open("users.json", mode="w", encoding="utf-8") as f:
+  json.dump(users, f)
 
 # %% --------------- lire un json ---------------------------
 
 # idem en lecture avec json.load ou json.loads
-
+try:
+  with open("users.json", mode="r", encoding="utf-8") as f:
+    users = json.load(f)
+except FileNotFoundError as e:
+  print(e)
+else:
+  print(users)
 
 
 
