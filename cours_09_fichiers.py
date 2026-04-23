@@ -128,6 +128,7 @@ with open("./mon_fic.txt", mode="w", encoding="utf-8") as f:
 
 
 # importer le module standard csv de la bibliothèque standard
+import csv
 
 users = [
   {"firstname":"Joe", "lastname": "Doe", "age": 22, "height": 1.75, "comment": "blablab ... ; blabliblo"},
@@ -135,6 +136,11 @@ users = [
 ]
 
 # ouvrir le fichier users.csv en création en utf-8
+with open("./users.csv", "w", encoding="utf-8") as f:
+  writer = csv.writer(f, delimiter=";")
+  writer.writerow(users[0].keys())
+  for d in users:
+    writer.writerow(d.values())
 # créer un writer issu du module csv, utilisant le fichier
 # utiliser le writer pour écrire le header du csv à partir des clés des dict
 # //                             les données du csv //         valeurs du dict
