@@ -9,8 +9,9 @@ outils: pip install requests
 hint: zipfile.Zipfile (doc ou google/stackoverflow)
 hint: les zip s'ouvrent et se ferment
 
-3. renommer le fichier csv en dns.csv
+3. déplacer le fichier csv en dans data/dns.csv
 4.. ne faire ce qui précède qui si ce n'est pas déjà fait
+hint: module os et pathlib.Path
 
 
 5. écrire un script qui
