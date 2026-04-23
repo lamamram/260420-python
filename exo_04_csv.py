@@ -129,3 +129,4 @@ dns_subset_df = pd.read_csv(
 gb =dns_subset_df.groupby("Pays BE")
 count_df = gb["Nom de domaine"].count().sort_values(ascending=False)
 count_df
+# %%
