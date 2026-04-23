@@ -69,3 +69,26 @@ if not (p_data / DNS_NAME).exists():
       os.rename(p_data / names[0], p_data / DNS_NAME)
 
 # %%
+import csv
+
+NB_ROWS = 10**5
+NB_SLICES = 2
+
+rows = []
+
+with open(p_data / DNS_NAME, "r", encoding="utf-8") as f:
+   reader = csv.reader(f, delimiter=";")
+   header = next(reader)
+   for i, row in enumerate(reader, start=1):
+      if i > NB_SLICES * NB_ROWS: break
+      rows.append(row)
+      if i % NB_ROWS: continue
+      # pas de conflit entre f et wf
+      with open(p_data / f"dns_{i}.csv", "w", encoding="utf-8") as wf:
+         writer = csv.writer(wf, delimiter=";", lineterminator="\n")
+         writer.writerow(header)
+         writer.writerows(rows)
+         rows = []
+
+
+# %%
