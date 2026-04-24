@@ -74,11 +74,17 @@ class SqliteClient:
     self.factory = factory
   
   def __enter__(self):
-    self.conn = sqlite3.connect(self.db_path)
+    # autocommit=False => c'est à nous de gérer les transanctions, dans l'__exit__
+    self.conn = sqlite3.connect(self.db_path, autocommit=False)
     self.conn.row_factory = self.factory
     return self
   
-  def __exit__(self, exc_type, exc, tb):
+  def __exit__(self, x_typ, x_msg, x_tb):
+    if x_typ:
+      print(x_msg)
+      self.conn.rollback()
+    else:
+      self.conn.commit()
     self.conn.close()
   
   def init_db(self, script_path: str | Path, encoding="utf-8"):
