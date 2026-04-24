@@ -322,7 +322,7 @@ if __name__ == "__main__":
    
   print(PremiumAccount.mro()) # ordre simple des résolution des méthodes
 
-# %% ------------------------ méthodes ------------------------
+# %% ------------------------ méthodes magiques ------------------------
 
 class Account: pass
 class Account:
@@ -401,4 +401,25 @@ for i in it:
   print(i)
 
 
+# %% ------------------------- gestionnaire de contexte --------------------
+
+class Ctx:
+  def __enter__(self):
+    print("Before")
+    # donne une valeur à la variable "as xxx"
+    return self
+  
+  def __exit__(self, x_type, x_msg, x_tb):
+    # exit: peut capturer une exception déclenchée dans le bloc
+    print(x_type, x_msg)
+    print("After")
+    # en retournant qqch vrai: exit capture réellement l'exception
+    return True
+
+with Ctx() as c:
+  print(f"variable de contexte: {c}")
+  3 / 0
+  print("dans le bloc")
+
+print("fin")
 # %%
