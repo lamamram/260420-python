@@ -80,6 +80,9 @@ class SqliteClient:
   
   def __exit__(self, exc_type, exc, tb):
     self.conn.close()
+  
+  def init_db(self, script_path: Path):
+    pass
 
 
 
