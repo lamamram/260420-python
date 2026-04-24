@@ -138,6 +138,6 @@ pd.read_csv(
    sep=";", 
    encoding='utf-8', 
    usecols=["Nom de domaine", "Pays BE"],
-   nrows=10**5).to_csv("dns_100k.csv", sep=";", encoding="utf-8")
+   nrows=10**5).to_csv("dns_100k.csv", sep=";", index=False, encoding="utf-8")
 
 # %%

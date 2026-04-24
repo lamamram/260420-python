@@ -48,6 +48,17 @@ with sqlite3.connect("dns.db") as conn:
 
 # %% ----------------------- insérer 100k lignes à partir d'un csv -----------------
 
+import sqlite3
+import csv
+
+with open("dns_100k.csv", mode="r", encoding="utf-8") as f:
+  with sqlite3.connect("dns.db") as conn:
+    reader = csv.reader(f, delimiter=";")
+    conn.row_factory = sqlite3.Row
+    cur = conn.cursor()
+    req = "INSERT INTO domain_name ('name', 'iso2') VALUES (?, ?)"
+    cur.executemany(req, [('google.fr', 'FR')])
+    print(cur.rowcount)
 
 
 
