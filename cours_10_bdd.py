@@ -67,9 +67,9 @@ with open("dns_100k.csv", mode="r", encoding="utf-8") as f:
 import sqlite3
 import csv
 from pathlib import Path
-from typing import Any
+from typing import List, Any
 class SqliteClient:
-  def __init__(self, db_path: Path, factory: Any=sqlite3.Row):
+  def __init__(self, db_path: str | Path, factory: Any=sqlite3.Row):
     self.db_path = db_path
     self.factory = factory
   
@@ -81,16 +81,37 @@ class SqliteClient:
   def __exit__(self, exc_type, exc, tb):
     self.conn.close()
   
-  def init_db(self, script_path: Path):
-    pass
+  def init_db(self, script_path: str | Path, encoding="utf-8"):
+    with open(script_path, "r", encoding=encoding) as f:
+      sql_content = f.read()
+    cur = self.conn.cursor()
+    cur.executescript(sql_content)
+  
+  def select(self, table: str):
+    cur = self.conn.cursor()
+    cur.execute(f"SELECT * FROM {table}")
+    return list(map(dict, cur.fetchall()))
+  
+  #  '   truc','bidule','machin        '
+  def insert(self, table: str, fields: list, values: List[Any]):
+    req = f"INSERT INTO {table} ('{"','".join(fields)}') VALUES (?{(len(fields) - 1) * ",?"})"
+    cur = self.conn.cursor()
+    cur.executemany(req, values)
+
+
 
 
 
 if __name__ == "__main__":
+  with open("dns_100k.csv", mode="r", encoding="utf-8") as f:
+    reader = csv.reader(f, delimiter=";")
+    next(reader)
+    reader = list(reader)[:5]
   with SqliteClient("dns.db") as sql:
-    # cur = sql.conn.cursor()
-    # cur.execute("SELECT * FROM pays")
-    # print(dict(cur.fetchone()))
+    sql.init_db("domain_names_sqlite3.sql")
+    sql.insert("domain_name", fields=("name", "iso2"), values=reader)
+    print(sql.select("domain_name"))
+    
 
 # sql.conn.cursor()
 
