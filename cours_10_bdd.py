@@ -61,6 +61,8 @@ with sqlite3.connect("dns.db") as conn:
 
 
 
+
+
 # %% ----------------- client sqlite3 en poo et gestionnaire de contexte
 
 
