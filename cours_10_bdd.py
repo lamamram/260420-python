@@ -43,7 +43,10 @@ with sqlite3.connect("dns.db") as conn:
   cur.execute("SELECT * FROM pays")
   rows = cur.fetchall()
   for row in rows:
-    print(dict(row)) 
+    print(dict(row))
+
+
+# %% ----------------------- insérer 100k lignes à partir d'un csv -----------------
 
 
 
