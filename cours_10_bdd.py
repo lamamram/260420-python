@@ -21,19 +21,30 @@ import sqlite3
 
 conn = sqlite3.connect("dns.db")
 cur  = conn.cursor()
-req  = cur.execute("SELECT SQLITE_VERSION()")
+req = "SELECT SQLITE_VERSION()"
+cur.execute(req)
 row  = cur.fetchone()
 print(row)
 conn.close()
 
 # %% ----------------- une connexion s'ouvre et se ferme ------------------
+import sqlite3
+
+with open("domain_names_sqlite3.sql", "r", encoding="utf-8") as f:
+  sql_content = f.read()
 
 with sqlite3.connect("dns.db") as conn:
-  conn = sqlite3.connect("dns.db")
+  # je veux les donées de sortie sous la forme de dicts
+  conn.row_factory = sqlite3.Row
   cur  = conn.cursor()
-  req  = cur.execute("SELECT SQLITE_VERSION()")
-  row  = cur.fetchone()
-  print(row)
+  # exécute le script mais ne retourne pas d'informations
+  cur.executescript(sql_content)
+  # test
+  cur.execute("SELECT * FROM pays")
+  rows = cur.fetchall()
+  for row in rows:
+    print(dict(row)) 
+
 
 
 
