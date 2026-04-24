@@ -10,7 +10,7 @@ class Counter:
 
   def __init__(self, text: str):
     # utilisation de l'interface de la classe Cleaner
-    # => injection de dépendance
+    # => composition d'objets
     self.__cleaner = Cleaner(text)
     self.__text = self.__cleaner.process()
 

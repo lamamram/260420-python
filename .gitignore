@@ -12,3 +12,5 @@ dns_*.csv
 *.zip
 2025*.csv
 data/
+*.ui
+Ui_*.py
