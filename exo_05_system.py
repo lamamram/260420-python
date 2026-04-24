@@ -50,7 +50,7 @@ print(list(filter(lambda p: p.endswith(".py"), os.listdir("."))))
 
 # %% -------------------- subprocess avec PIPE (SAFE) -----------------
 
-# ls -1 | grep -E ".py$"
+# ls -1 | grep -E ".py$" => dans un bash
 # shlex ne peut analyser une commande pipe car il pense que c'est une option
 
 cmd1 = subprocess.Popen(shlex.split("ls -1"), stdout=subprocess.PIPE)
