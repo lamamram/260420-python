@@ -57,7 +57,8 @@ with open("dns_100k.csv", mode="r", encoding="utf-8") as f:
     conn.row_factory = sqlite3.Row
     cur = conn.cursor()
     req = "INSERT INTO domain_name ('name', 'iso2') VALUES (?, ?)"
-    cur.executemany(req, [('google.fr', 'FR')])
+    next(reader)
+    cur.executemany(req, reader)
     print(cur.rowcount)
 
 
