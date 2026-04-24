@@ -26,7 +26,14 @@ row  = cur.fetchone()
 print(row)
 conn.close()
 
-# %% ----------------- une connexion s'ouvre et se ferme ------------------ 
+# %% ----------------- une connexion s'ouvre et se ferme ------------------
+
+with sqlite3.connect("dns.db") as conn:
+  conn = sqlite3.connect("dns.db")
+  cur  = conn.cursor()
+  req  = cur.execute("SELECT SQLITE_VERSION()")
+  row  = cur.fetchone()
+  print(row)
 
 
 
