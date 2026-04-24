@@ -129,4 +129,15 @@ dns_subset_df = pd.read_csv(
 gb =dns_subset_df.groupby("Pays BE")
 count_df = gb["Nom de domaine"].count().sort_values(ascending=False)
 count_df
+# %% ---------------------- tranche de 100k one shot -------------------------
+
+import pandas as pd
+URL = "https://www.afnic.fr/wp-media/ftp/documentsOpenData/202503_OPENDATA_A-NomsDeDomaineEnPointFr.zip"
+pd.read_csv(
+   URL, 
+   sep=";", 
+   encoding='utf-8', 
+   usecols=["Nom de domaine", "Pays BE"],
+   nrows=10**5).to_csv("dns_100k.csv", sep=";", encoding="utf-8")
+
 # %%
