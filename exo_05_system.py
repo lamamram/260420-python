@@ -61,4 +61,34 @@ output, _ = cmd2.communicate()
 print(output.decode("utf-8").splitlines())
 
 
+# %% --------------------------- surcouche subprocess pour les pies (powershell) --------------
+# pip install sarge
+"""
+sarge simplifie les commandes | avec bash ou powershell
+WARNING: les commandes | en powershell 
+notamment avec des données d'entrées venant de l'utilisateurs (variables)
+ne peuvent pas être complètement sécurisées => il faut valider avant d'exécuter
+"""
 
+import sarge
+from typing import List
+
+def run_ps(cmd: str, unique=False) -> str | List[str]:
+  """
+  pour des commandes pipes powershell sans donées d'entrée => commandes en dur
+  """
+  # 1. par défaut subprocess avec windows lance un cmd (invite DOS)
+  invoke_cmd = ["powershell", "-NoProfile", "-OutputFormat", "Text", "-Command"]
+  # 2. pb d'encodages avec powershell(windows) => utf8
+  set_encoding_cmd = "[Console]::OutputEncoding = [System.Text.Encoding]::UTF8"
+  # 3. changement d'encodage + commande attendue
+  cmd = ";".join([set_encoding_cmd, cmd])
+  invoke_cmd.append(INTERFACES_CMD)
+  output = sarge.capture_stdout(invoke_cmd).stdout.text
+  
+  return output if unique else output.splitlines()
+
+INTERFACES_CMD = "Get-NetAdapter | Where-Object {$_.Status -eq 'Up'} | Select-Object -ExpandProperty InterfaceDescription"
+
+run_ps(INTERFACES_CMD)
+# %%
