@@ -47,4 +47,18 @@ print(list(filter(lambda p: p.endswith(".py"), os.listdir("."))))
 #   if p.endswith(".py"):
 #     print(p)
 
-# %%
+
+# %% -------------------- subprocess avec PIPE (SAFE) -----------------
+
+# ls -1 | grep -E ".py$"
+# shlex ne peut analyser une commande pipe car il pense que c'est une option
+
+cmd1 = subprocess.Popen(shlex.split("ls -1"), stdout=subprocess.PIPE)
+cmd2 = subprocess.Popen(shlex.split(r'grep -E "\.py$"'), stdin=cmd1.stdout, stdout=subprocess.PIPE)
+cmd1.stdout.close() # permet d'avoir le signal de sortie de cmd2 pour s'arrêter
+output, _ = cmd2.communicate()
+# output => octets => decode("utf-8") => str 
+print(output.decode("utf-8").splitlines())
+
+
+
