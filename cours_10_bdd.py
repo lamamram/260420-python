@@ -62,21 +62,34 @@ with open("dns_100k.csv", mode="r", encoding="utf-8") as f:
     print(cur.rowcount)
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
 # %% ----------------- client sqlite3 en poo et gestionnaire de contexte
 
+import sqlite3
+import csv
+from pathlib import Path
+from typing import Any
+class SqliteClient:
+  def __init__(self, db_path: Path, factory: Any=sqlite3.Row):
+    self.db_path = db_path
+    self.factory = factory
+  
+  def __enter__(self):
+    self.conn = sqlite3.connect(self.db_path)
+    self.conn.row_factory = self.factory
+    return self
+  
+  def __exit__(self, exc_type, exc, tb):
+    self.conn.close()
+
+
+
+if __name__ == "__main__":
+  with SqliteClient("dns.db") as sql:
+    # cur = sql.conn.cursor()
+    # cur.execute("SELECT * FROM pays")
+    # print(dict(cur.fetchone()))
+
+# sql.conn.cursor()
 
 
 
